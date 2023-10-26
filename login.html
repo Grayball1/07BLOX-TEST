@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Page</title>
+  <script type="text/javascript">
+    function addUser() {
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+      var user = {username: username, password: password};
+      var users = JSON.parse(localStorage.getItem("users")) || [];
+      users.push(user);
+      localStorage.setItem("users", JSON.stringify(users));
+    }
+
+    function removeUser() {
+      var username = document.getElementById("username").value;
+      var users = JSON.parse(localStorage.getItem("users")) || [];
+      users = users.filter(function(user) {
+        return user.username !== username;
+      });
+      localStorage.setItem("users", JSON.stringify(users));
+    }
+
+    function loginUser() {
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+      var users = JSON.parse(localStorage.getItem("users")) || [];
+      var foundUser = users.find(function(user) {
+        return user.username === username && user.password === password;
+      });
+      if (foundUser) {
+        alert("Login successful!");
+        // Redirect to home page
+        window.location.href = "home.html";
+      } else {
+        alert("Invalid username or password.");
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>Login Page</h1>
+  <form>
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username"><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password"><br><br>
+    <button type="button" onclick="addUser()">Register</button>
+    <button type="button" onclick="removeUser()">Remove User</button>
+    <button type="button" onclick="loginUser()">Login</button>
+  </form>
+</body>
+</html>

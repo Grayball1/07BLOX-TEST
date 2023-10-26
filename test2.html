@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login Page</title>
+  </head>
+  <body>
+  <center>
+    <h1>Login Page</h1>
+    <form id="login-form">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username"><br><br>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password"><br><br>
+      <button type="submit">Submit</button>
+    </form>
+
+    <script>
+      const fs = require('fs');
+      const path = require('path');
+
+      const usersFile = path.join(__dirname, 'users.txt');
+      let users = {};
+
+      fs.readFile(usersFile, 'utf8', (err, data) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+
+        const lines = data.split('\n');
+        for (const line of lines) {
+          const [username, passwordHash] = line.split(':');
+          users[username] = passwordHash;
+        }
+      });
+
+      const form = document.getElementById('login-form');
+      const usernameInput = document.getElementById('username');
+      const passwordInput = document.getElementById('password');
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const username = usernameInput.value;
+        const password = passwordInput.value;
+
+        // Hash the password using SHA-256
+        const sha256 = new Hashes.SHA256();
+        const hashedPassword = sha256.hex(password);
+
+        if (users[username] === hashedPassword) {
+          alert('Login successful!');
+        } else {
+          alert('Invalid username or password.');
+        }
+      });
+    </script>
+	</center>
+  </body>
+</html>
