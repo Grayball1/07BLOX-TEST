@@ -9,6 +9,10 @@
       var user = {username: username, password: password};
       var users = JSON.parse(localStorage.getItem("users")) || [];
       users.push(user);
+              localStorage.setItem('username', username);
+        localStorage.setItem('password', password);
+
+        alert('Login information saved!');
       localStorage.setItem("users", JSON.stringify(users));
             form.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -16,10 +20,7 @@
         const username = usernameInput.value;
         const password = passwordInput.value;
 
-        localStorage.setItem('username', username);
-        localStorage.setItem('password', password);
 
-        alert('Login information saved!');
       });
     }
 
