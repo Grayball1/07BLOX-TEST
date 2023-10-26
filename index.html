@@ -10,6 +10,17 @@
       var users = JSON.parse(localStorage.getItem("users")) || [];
       users.push(user);
       localStorage.setItem("users", JSON.stringify(users));
+            form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const username = usernameInput.value;
+        const password = passwordInput.value;
+
+        localStorage.setItem('username', username);
+        localStorage.setItem('password', password);
+
+        alert('Login information saved!');
+      });
     }
 
     function removeUser() {
@@ -29,6 +40,17 @@
         return user.username === username && user.password === password;
       });
       if (foundUser) {
+              form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const username = usernameInput.value;
+        const password = passwordInput.value;
+
+        localStorage.setItem('username', username);
+        localStorage.setItem('password', password);
+
+        alert('Login information saved!');
+      });
         alert("Login successful!");
         // Redirect to home page
         window.location.href = "home.html";
